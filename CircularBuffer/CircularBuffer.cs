@@ -1,4 +1,11 @@
-﻿using System;
+﻿/*
+ * Проблемы:
+ * 1. Возможны извлечения из буфера default значений для типов значений, что говорит о том, что буфер пуст, нужен другой механизм уведомления о пустом буфере
+ * 2. При многопоточной работе, возможна ситуация, когда все попы прошли, а 1 пуш еще ждал когда ему вставить значение
+ *
+ */
+
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -52,6 +59,7 @@ namespace CircularBuffer
             if (Mode == BufferMode.Wait && Count == _buffer.Length)
             {
                 _eventSlim.Wait(); //Тут сразу после выхода надо хватать поток на себя
+                    
                 Monitor.Enter(_sync);
             }
 
