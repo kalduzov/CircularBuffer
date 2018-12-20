@@ -41,8 +41,8 @@ namespace CircularBuffer
         {
             if (capacity <= 0)
                 Capacity = 7;
-
-            Capacity = capacity;
+            else
+              Capacity = capacity;
             Mode = mode;
             _buffer = new T[capacity];
             _freeIndex = _buffer.Length - 1; //Свободная ячейка указаывает на последний элемент массива
